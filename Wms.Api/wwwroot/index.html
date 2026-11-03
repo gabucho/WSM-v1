@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WMS Básico</title><link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header><div><h1>WMS Básico</h1><p>Gestión de almacén e inventario</p></div><span class="tag">MVP · v1.0</span></header>
+<main>
+<section class="cards">
+ <article><small>Productos</small><strong id="totalProducts">0</strong></article>
+ <article><small>Unidades en inventario</small><strong id="totalStock">0</strong></article>
+ <article><small>Movimientos registrados</small><strong id="totalMovements">0</strong></article>
+</section>
+<nav><button class="tab active" data-tab="products">Productos</button><button class="tab" data-tab="inventory">Inventario</button><button class="tab" data-tab="movement">Registrar movimiento</button><button class="tab" data-tab="setup">Catálogos</button></nav>
+<section id="products" class="panel">
+ <h2>Productos</h2>
+ <form id="productForm" class="form-grid">
+  <input id="sku" placeholder="SKU / Código" required><input id="productName" placeholder="Nombre del producto" required>
+  <input id="description" placeholder="Descripción"><input id="unitCost" type="number" min="0" step="0.01" placeholder="Costo unitario" value="0">
+  <select id="categoryId"><option value="">Sin categoría</option></select><button>Guardar producto</button>
+ </form>
+ <div class="table-wrap"><table><thead><tr><th>SKU</th><th>Producto</th><th>Categoría</th><th>Costo</th></tr></thead><tbody id="productsBody"></tbody></table></div>
+</section>
+<section id="inventory" class="panel hidden"><h2>Existencias</h2><div class="table-wrap"><table><thead><tr><th>SKU</th><th>Producto</th><th>Bodega</th><th>Existencia</th></tr></thead><tbody id="inventoryBody"></tbody></table></div></section>
+<section id="movement" class="panel hidden">
+ <h2>Registrar entrada o salida</h2><form id="movementForm" class="form-grid">
+  <select id="moveProduct" required></select><select id="moveWarehouse" required></select>
+  <select id="moveType"><option value="IN">Entrada</option><option value="OUT">Salida</option></select>
+  <input id="moveQuantity" type="number" min="0.001" step="0.001" placeholder="Cantidad" required>
+  <input id="moveReference" placeholder="Referencia / documento"><button>Registrar movimiento</button>
+ </form><p class="hint">Las salidas no permiten dejar inventario negativo.</p>
+ <h3>Últimos movimientos</h3><div class="table-wrap"><table><thead><tr><th>Fecha</th><th>Tipo</th><th>Producto</th><th>Bodega</th><th>Cantidad</th><th>Referencia</th></tr></thead><tbody id="movementsBody"></tbody></table></div>
+</section>
+<section id="setup" class="panel hidden">
+ <h2>Catálogos</h2><div class="two">
+  <form id="categoryForm"><h3>Nueva categoría</h3><input id="categoryName" placeholder="Nombre" required><button>Agregar categoría</button></form>
+  <form id="warehouseForm"><h3>Nueva bodega</h3><input id="warehouseName" placeholder="Nombre" required><input id="warehouseLocation" placeholder="Ubicación"><button>Agregar bodega</button></form>
+ </div>
+ <div class="two"><div><h3>Categorías</h3><ul id="categoriesList"></ul></div><div><h3>Bodegas</h3><ul id="warehousesList"></ul></div></div>
+</section>
+<div id="message" role="status"></div>
+</main><footer>WMS Básico · Sistema inicial de gestión de almacenes</footer>
+<script src="/app.js"></script>
+</body></html>
